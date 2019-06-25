@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get("index", [
+    "as" => "main-page",
+    "uses" => "PageController@getIndex",
+]);
