@@ -52,6 +52,21 @@
                 $(".header-bottom").removeClass('fixNav')
             }}
         )
+
+        $('.cart-item-delete').click(function () {
+        var link = $(this).attr('link');
+        var element = $(this);
+        
+$.ajax({
+  url: link
+})
+  .done(function(data, statusText, xhr) {
+      if(xhr.status === 200) {
+console.log("dsf");
+          element.parent().attr('style', 'display: none;');
+       } 
+  });
+    });
     })
 </script>
 </body>
