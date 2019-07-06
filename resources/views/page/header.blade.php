@@ -21,65 +21,70 @@
     <div class="header-body">
         <div class="container beta-relative">
             <div class="pull-left">
-                <a href="index.html" id="logo"><img src="source/assets/dest/images/logo-cake.png" width="200px" alt=""></a>
+                <a href="http://localhost/index" id="logo"><img src="source/assets/dest/images/logo-cake.png" width="200px" alt=""></a>
             </div>
             <div class="pull-right beta-components space-left ov">
                 <div class="space10">&nbsp;</div>
                 <div class="beta-comp">
                     <form role="search" method="get" id="searchform" action="/">
-                        <input type="text" value="" name="s" id="s" placeholder="Nhập từ khóa..." />
+                        <input type="text" value="" name="s" id="s" placeholder="Insert word..." />
                         <button class="fa fa-search" type="submit" id="searchsubmit"></button>
                     </form>
                 </div>
 
                 <div class="beta-comp">
+                    @if(Session::has('cart'))
                     <div class="cart">
-                        <div class="beta-select"><i class="fa fa-shopping-cart"></i> Basket (None) <i class="fa fa-chevron-down"></i></div>
+                        <div class="beta-select"><i class="fa fa-shopping-cart"></i> Basket
+                            (@if(Session::has('cart')){{Session('cart')->totalQty}} @else None @endif)
+                            <i class="fa fa-chevron-down"></i></div>
                         <div class="beta-dropdown cart-body">
+
+                         @foreach($product_cart as $pc)
                             <div class="cart-item">
+                                <a class="cart-item-delete" href="{{route('del_basket',$pc['item']['id'])}}"> <i class="fa fa-times"></i></a>
                                 <div class="media">
-                                    <a class="pull-left" href="#"><img src="source/assets/dest/images/products/cart/1.png" alt=""></a>
+                                    <a class="pull-left" href="#"><img src="source/image/product/{{$pc['item']['image']}}" alt=""></a>
                                     <div class="media-body">
-                                        <span class="cart-item-title">Sample Woman Top</span>
-                                        <span class="cart-item-options">Size: XS; Colar: Navy</span>
-                                        <span class="cart-item-amount">1*<span>$49.50</span></span>
+                                        <span class="cart-item-title">{{$pc['item']['name']}}</span>
+                                        <span class="cart-item-amount">{{$pc['qty']}}*<span>
+                                                @if($pc['item']['promotion_price'] == 0){{number_format($pc['item']['unit_price'])}}
+                                                @else {{number_format($pc['item']['promotion_price'])}}
+                                                @endif
+                                            </span> VND </span>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="cart-item">
-                                <div class="media">
-                                    <a class="pull-left" href="#"><img src="source/assets/dest/images/products/cart/2.png" alt=""></a>
-                                    <div class="media-body">
-                                        <span class="cart-item-title">Sample Woman Top</span>
-                                        <span class="cart-item-options">Size: XS; Colar: Navy</span>
-                                        <span class="cart-item-amount">1*<span>$49.50</span></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="cart-item">
-                                <div class="media">
-                                    <a class="pull-left" href="#"><img src="source/assets/dest/images/products/cart/3.png" alt=""></a>
-                                    <div class="media-body">
-                                        <span class="cart-item-title">Sample Woman Top</span>
-                                        <span class="cart-item-options">Size: XS; Colar: Navy</span>
-                                        <span class="cart-item-amount">1*<span>$49.50</span></span>
-                                    </div>
-                                </div>
-                            </div>
-
+                         @endforeach
                             <div class="cart-caption">
-                                <div class="cart-total text-right">Tổng tiền: <span class="cart-total-value">$34.55</span></div>
-                                <div class="clearfix"></div>
+                                <div class="cart-total text-right"> Total: <span class="cart-total-value">{{number_format(Session('cart')->totalPrice)}} VND </span>
+                                </div>
 
+{{--                                <div class="cart-total text-right"> Total: <span class="cart-total-value">--}}
+{{--                                        @if($pc['item']['promotion_price'] == 0){{number_format($pc['item']['unit_price'])}}--}}
+{{--                                        @else {{number_format($pc['item']['promotion_price'])}}--}}
+{{--                                        @endif--}}
+{{--                                    </span> VND </div>--}}
+                                <div class="clearfix"></div>
                                 <div class="center">
                                     <div class="space10">&nbsp;</div>
-                                    <a href="checkout.html" class="beta-btn primary text-center">Đặt hàng <i class="fa fa-chevron-right"></i></a>
+                                    <a href="{{route('order')}}" class="beta-btn primary text-center">Đặt hàng <i class="fa fa-chevron-right"></i></a>
                                 </div>
                             </div>
                         </div>
                     </div> <!-- .cart -->
+                    @else
+                        <div class="cart">
+                            <div class="beta-select"> <i class="fa fa-shopping-cart"></i> Basket (None)
+                                <i class="fa fa-chevron-down"></i>
+                            </div>
+                            <div class="beta-dropdown cart-body">
+                                <div class="cart-caption">
+                                    <span> None </span>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -92,16 +97,16 @@
             <div class="visible-xs clearfix"></div>
             <nav class="main-menu">
                 <ul class="l-inline ov">
-                    <li><a href="index.html">Trang chủ</a></li>
-                    <li><a href="#">Sản phẩm</a>
+                    <li><a href="{{route('main-page')}}"> Main page </a></li>
+                    <li><a href="{{route('product_type',1)}}"> Products </a>
                         <ul class="sub-menu">
-                            <li><a href="product_type.html">Sản phẩm 1</a></li>
-                            <li><a href="product_type.html">Sản phẩm 2</a></li>
-                            <li><a href="product_type.html">Sản phẩm 4</a></li>
+                            @foreach($product_type as $type)
+                            <li><a href="{{route('product_type',$type->id)}}"> {{$type->name}}</a></li>
+                            @endforeach
                         </ul>
                     </li>
-                    <li><a href="about.html"> Introduce </a></li>
-                    <li><a href="contacts.html"> Contact </a></li>
+                    <li><a href="{{route('about')}}"> Introduce </a></li>
+                    <li><a href="{{route('contact')}}"> Contact </a></li>
                 </ul>
                 <div class="clearfix"></div>
             </nav>

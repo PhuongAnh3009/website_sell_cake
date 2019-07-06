@@ -1872,12 +1872,12 @@ position:relative
 }
 
 .single-item-header {
-margin-bottom:20px
+margin-bottom:15px
 }
 
 .single-item-title {
 font-size:15px;
-margin-bottom:5px
+margin-bottom:5px;
 }
 
 .single-item-price {
