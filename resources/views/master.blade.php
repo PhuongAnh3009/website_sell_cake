@@ -66,6 +66,8 @@ console.log("dsf");
           element.parent().attr('style', 'display: none;');
        } 
   });
+
+            // dùng jquery get giá sp ra. Get cả tổng giá nữa, lưu vào 2 biến. Rồi dùng biến tôrng - biến giá sp vừa xoá. Rồi apend nó vào thay thế giá gốc.
     });
     })
 </script>
