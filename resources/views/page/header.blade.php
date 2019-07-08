@@ -36,14 +36,15 @@
                     @if(Session::has('cart'))
                     <div class="cart">
                         <div class="beta-select"><i class="fa fa-shopping-cart"></i> Basket
-                            (@if(Session::has('cart')){{Session('cart')->totalQty}} @else None @endif)
+                            (@if(Session::has('cart'))<span id="totalQty">{{Session('cart')->totalQty}}</span> @else None @endif)
                             <i class="fa fa-chevron-down"></i></div>
                         <div class="beta-dropdown cart-body">
 
                          @foreach($product_cart as $pc)
-                            <div class="cart-item">
+
+                            <div class="cart-item" >
 {{--                                <a class="cart-item-delete" href="{{route('del_basket',$pc['item']['id'])}}"> <i class="fa fa-times"></i></a>--}}
-                                <a class="cart-item-delete" href="javascript:void(0)" link="{{route('del_basket',$pc['item']['id'])}}" data-quality={{$pc['qty']}} data-price={{$pc['item']['promotion_price']}}> <i class="fa fa-times"></i></a>
+                                <a class="cart-item-delete" href="javascript:void(0)" link="{{route('del_basket',$pc['item']['id'])}}" data-quality={{$pc['qty']}} data-price={{$price = $pc['item']['promotion_price']  != 0 ? $pc['item']['promotion_price'] :$pc['item']['unit_price']}}> <i class="fa fa-times"></i></a>
 
                                 <div class="media">
                                     <a class="pull-left" href="#"><img src="source/image/product/{{$pc['item']['image']}}" alt=""></a>
@@ -59,7 +60,7 @@
                             </div>
                          @endforeach
                             <div class="cart-caption">
-                                <div class="cart-total text-right"> Total: <span class="cart-total-value" data-total-value={{Session('cart')->totalPrice}}>{{number_format(Session('cart')->totalPrice)}} VND </span>
+                                <div class="cart-total text-right"> Total: <span class="cart-total-value"  id="cart-total" data-total-value={{Session('cart')->totalPrice}}>{{number_format(Session('cart')->totalPrice)}} VND </span>
                                 </div>
 
 {{--                                <div class="cart-total text-right"> Total: <span class="cart-total-value">--}}

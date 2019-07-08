@@ -17,7 +17,8 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index()
+    {
         return view('page.order');
     }
 
@@ -34,10 +35,11 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CheckoutRequest $request) {
+    public function store(CheckoutRequest $request)
+    {
         $cart = Session::get('cart');
 
         $customer = new Customer;
@@ -62,12 +64,11 @@ class OrderController extends Controller
             $bill_detail->id_bill = $bill->id;
             $bill_detail->id_product = $key;
             $bill_detail->quantity = $value['qty'];
-            $bill_detail->unit_price = ($value['price']/$value['qty']);
+            $bill_detail->unit_price = ($value['price'] / $value['qty']);
             $bill_detail->save();
         }
         Session::forget('cart');
-        return redirect()->back()->with('alert','Order successful!');
-
+        return redirect()->back()->with('alert', 'Order successful!');
 
 
     }
@@ -75,7 +76,7 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -86,7 +87,7 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -97,8 +98,8 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -109,7 +110,7 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

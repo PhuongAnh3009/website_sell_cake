@@ -16,7 +16,7 @@ class CheckQuantityMiddleware
     public function handle($request, Closure $next)
     {
         $qty = Session('cart')->totalQty;
-        if ( $qty >= 3) {
+        if ($qty >= 3) {
             return $next($request);
         }
         return redirect()->back()->with('notice', 'Quantity is not enough to sell!');

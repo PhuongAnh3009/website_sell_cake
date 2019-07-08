@@ -63,10 +63,11 @@
                 .done(function (data, statusText, xhr) {
                     if (xhr.status === 200) {
                         element.parent().attr('style', 'display: none;');
-                        var price = parseInt(element.attr("data-price")) * element.attr("data-quality")
-                        var newPrice = parseInt($(".cart-total-value").attr("data-total-value")) - price
-                        console.log(element.attr("data-price"), element.attr("data-quality"), price)
-
+                        var totalPrice = $('#cart-total').attr('data-total-value');
+                        var thisPrice = element.attr("data-price");
+                        var newPrice = totalPrice - thisPrice;
+                        var totalQty = $('#totalQty').text() - 1;
+                        $('#totalQty').text(totalQty);
                         $(".cart-total-value").text(newPrice)
                         $(".cart-total-value").attr("data-total-value", newPrice)
                     }

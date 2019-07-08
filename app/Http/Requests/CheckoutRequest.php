@@ -27,16 +27,17 @@ class CheckoutRequest extends FormRequest
             'name' => 'required',
             'email' => 'required',
             'address' => 'required',
-            'phone_number' => 'required',
+            'phone' => 'required',
         ];
     }
+
     public function messages()
     {
-       return [
-           'name.required' => 'You need fill full name',
-           'email.required' => 'You need fill email',
-           'address.required' => 'You need fill your detail address',
-           'phone_number.required' => 'You need fill your phone number',
-       ];
+        return [
+            'name.required' => 'You need fill full name',
+            'email.required' => 'You need fill email',
+            'address.required' => 'You need fill your detail address',
+            'phone_number.required' => 'You need fill your phone number',
+        ];
     }
 }
