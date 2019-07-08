@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::get("index", [
     'as' => 'main-page',
-    'uses' => 'PageController@getIndex'
+    'uses' => 'PageController@index'
 ]);
 
 Route::get('product-type/{types}',[
@@ -42,20 +42,20 @@ Route::get('about',[
 
 Route::get('add-to-cart/{id}',[
     'as'=>"add_basket",
-    'uses'=>'PageController@getAddToCart'
+    'uses'=>'CartController@store'
 ]);
 
 Route::get('del-cart/{id}',[
     'as'=>"del_basket",
-    'uses'=>'PageController@getDelFromCart'
+    'uses'=>'CartController@destroy'
 ]);
 
 Route::get("order",[
     'as'=>"order",
-    'uses'=>'PageController@getCheckout'
+    'uses'=>'OrderController@index'
 ]);
 
 Route::post("order",[
     'as'=>"order",
-    'uses'=>'PageController@postCheckout'
+    'uses'=>'OrderController@store'
 ])->middleware('checkQuantity');

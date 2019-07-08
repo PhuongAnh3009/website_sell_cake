@@ -17,7 +17,7 @@ use App\Http\Requests\CheckoutRequest;
 class PageController extends Controller
 {
 
-    public function getIndex()
+    public function index()
     {
         $slide = Slide::all();
 //        return view("page.main-page",['slide'=>$slide]);
@@ -53,65 +53,66 @@ class PageController extends Controller
         return view("page.about");
     }
 
-    public function getAddToCart(Request $request,$id) {
-        $product = Product::find($id);
-        $oldCart  = Session('cart')?Session::get('cart'):null;
-        $cart = new Cart($oldCart);
-        $cart->add($product,$id);
-        $request->session()->put('cart',$cart);
-        return redirect() -> back();
-    }
+//    public function store(Request $request,$id) {
+//        $product = Product::find($id);
+//        $oldCart  = Session('cart')?Session::get('cart'):null;
+//        $cart = new Cart($oldCart);
+//        $cart->add($product,$id);
+//        $request->session()->put('cart',$cart);
+//        return redirect() -> back();
+//    }
 
-    public function getDelFromCart($id){
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
-        $cart = new Cart($oldCart);
-        $cart->removeItem(($id));
-        if (count($cart->items) > 0) {
-            Session::put('cart', $cart);
-        } else {
-            Session::forget('cart');
-        }
-        return redirect()->back();
-    }
+//    public function destroy($id){
+//        $oldCart = Session::has('cart')?Session::get('cart'):null;
+//        $cart = new Cart($oldCart);
+//        $cart ->removeItem(($id));
+//        if(count($cart->items)>0) {
+//            Session::put('cart',$cart);
+//        }
+//        else {
+//            Session::forget('cart');
+//        }
+//        return redirect()->back();
+//    }
 
-    public function getCheckout() {
-        return view('page.order');
-    }
+//    public function index() {
+//        return view('page.order');
+//    }
 
-    public function postCheckout(CheckoutRequest $request) {
-        $cart = Session::get('cart');
-
-         $customer = new Customer;
-         $customer->name = $request->name;
-         $customer->gender = $request->gender;
-         $customer->email = $request->email;
-         $customer->address = $request->address;
-         $customer->phone_number = $request->phone;
-         $customer->note = $request->note;
-         $customer->save();
-
-         $bill = new Bill;
-         $bill->id_customer = $customer->id;
-         $bill->date_order = date('Y-m-d');
-         $bill->total = $cart->totalPrice;
-         $bill->payment = $request->payment;
-         $bill->note = $request->note;
-         $bill->save();
-
-        foreach ($cart->items as $key => $value) {
-            $bill_detail = new BillDetail;
-            $bill_detail->id_bill = $bill->id;
-            $bill_detail->id_product = $key;
-            $bill_detail->quantity = $value['qty'];
-            $bill_detail->unit_price = ($value['price']/$value['qty']);
-            $bill_detail->save();
-        }
-        Session::forget('cart');
-        return redirect()->back()->with('alert','Order successful!');
-
-
-
-    }
+//    public function store(CheckoutRequest $request) {
+//        $cart = Session::get('cart');
+//
+//         $customer = new Customer;
+//         $customer->name = $request->name;
+//         $customer->gender = $request->gender;
+//         $customer->email = $request->email;
+//         $customer->address = $request->address;
+//         $customer->phone_number = $request->phone;
+//         $customer->note = $request->note;
+//         $customer->save();
+//
+//         $bill = new Bill;
+//         $bill->id_customer = $customer->id;
+//         $bill->date_order = date('Y-m-d');
+//         $bill->total = $cart->totalPrice;
+//         $bill->payment = $request->payment;
+//         $bill->note = $request->note;
+//         $bill->save();
+//
+//        foreach ($cart->items as $key => $value) {
+//            $bill_detail = new BillDetail;
+//            $bill_detail->id_bill = $bill->id;
+//            $bill_detail->id_product = $key;
+//            $bill_detail->quantity = $value['qty'];
+//            $bill_detail->unit_price = ($value['price']/$value['qty']);
+//            $bill_detail->save();
+//        }
+//        Session::forget('cart');
+//        return redirect()->back()->with('alert','Order successful!');
+//
+//
+//
+//    }
 }
 
 

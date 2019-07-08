@@ -43,13 +43,13 @@
                          @foreach($product_cart as $pc)
                             <div class="cart-item">
 {{--                                <a class="cart-item-delete" href="{{route('del_basket',$pc['item']['id'])}}"> <i class="fa fa-times"></i></a>--}}
-                                <a class="cart-item-delete" href="javascript:void(0)" link="{{route('del_basket',$pc['item']['id'])}}"> <i class="fa fa-times"></i></a>
+                                <a class="cart-item-delete" href="javascript:void(0)" link="{{route('del_basket',$pc['item']['id'])}}" data-quality={{$pc['qty']}} data-price={{$pc['item']['promotion_price']}}> <i class="fa fa-times"></i></a>
 
                                 <div class="media">
                                     <a class="pull-left" href="#"><img src="source/image/product/{{$pc['item']['image']}}" alt=""></a>
                                     <div class="media-body">
                                         <span class="cart-item-title">{{$pc['item']['name']}}</span>
-                                        <span class="cart-item-amount">{{$pc['qty']}}*<span>
+                                        <span class="cart-item-amount" >{{$pc['qty']}}*<span>
                                                 @if($pc['item']['promotion_price'] == 0){{number_format($pc['item']['unit_price'])}}
                                                 @else {{number_format($pc['item']['promotion_price'])}}
                                                 @endif
@@ -59,7 +59,7 @@
                             </div>
                          @endforeach
                             <div class="cart-caption">
-                                <div class="cart-total text-right"> Total: <span class="cart-total-value">{{number_format(Session('cart')->totalPrice)}} VND </span>
+                                <div class="cart-total text-right"> Total: <span class="cart-total-value" data-total-value={{Session('cart')->totalPrice}}>{{number_format(Session('cart')->totalPrice)}} VND </span>
                                 </div>
 
 {{--                                <div class="cart-total text-right"> Total: <span class="cart-total-value">--}}

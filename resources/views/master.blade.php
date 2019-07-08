@@ -56,19 +56,22 @@
         $('.cart-item-delete').click(function () {
         var link = $(this).attr('link');
         var element = $(this);
-        
-$.ajax({
-  url: link
-})
-  .done(function(data, statusText, xhr) {
-      if(xhr.status === 200) {
-console.log("dsf");
-          element.parent().attr('style', 'display: none;');
-       } 
-  });
 
-            // dùng jquery get giá sp ra. Get cả tổng giá nữa, lưu vào 2 biến. Rồi dùng biến tôrng - biến giá sp vừa xoá. Rồi apend nó vào thay thế giá gốc.
-    });
+            $.ajax({
+                url: link
+            })
+                .done(function (data, statusText, xhr) {
+                    if (xhr.status === 200) {
+                        element.parent().attr('style', 'display: none;');
+                        var price = parseInt(element.attr("data-price")) * element.attr("data-quality")
+                        var newPrice = parseInt($(".cart-total-value").attr("data-total-value")) - price
+                        console.log(element.attr("data-price"), element.attr("data-quality"), price)
+
+                        $(".cart-total-value").text(newPrice)
+                        $(".cart-total-value").attr("data-total-value", newPrice)
+                    }
+                });
+        });
     })
 </script>
 </body>
