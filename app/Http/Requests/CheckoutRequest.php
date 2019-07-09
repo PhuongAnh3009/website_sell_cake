@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use App\Rules\MinMax;
 class CheckoutRequest extends FormRequest
 {
     /**
@@ -24,7 +24,7 @@ class CheckoutRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => ['required', new MinMax()],
             'email' => 'required',
             'address' => 'required',
             'phone' => 'required',
