@@ -1,6 +1,8 @@
 @extends('master')
 @section('content')
-
+    @if(Session::has('flag'))
+        <div class="alert alert-{{Session::get('flag')}}"> {{Session::get('message')}}</div>
+    @endif
     <div class="rev-slider">
         <div class="fullwidthbanner-container">
             <div class="fullwidthbanner">
@@ -124,7 +126,7 @@
                                                 </p>
                                             </div>
                                             <div class="single-item-caption" style="margin-bottom: 10px">
-                                                <a class="add-to-cart pull-left" href="shopping_cart.html"><i
+                                                <a class="add-to-cart pull-left" href="{{route('add_basket',$pp->id)}}"><i
                                                         class="fa fa-shopping-cart"></i></a>
                                                 <a class="beta-btn primary" href="product.html">Details <i
                                                         class="fa fa-chevron-right"></i></a>
