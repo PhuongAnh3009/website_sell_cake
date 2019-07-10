@@ -3,17 +3,17 @@
     @if(Session::has('flag'))
         <div class="alert alert-{{Session::get('flag')}}"> {{Session::get('message')}}</div>
     @endif
+    @if(Session::has('note'))
+        <div class="alert alert-danger"> {{Session::get('note')}}</div>
+    @endif
     <div class="rev-slider">
         <div class="fullwidthbanner-container">
             <div class="fullwidthbanner">
                 <div class="bannercontainer">
                     <div class="banner">
                         <ul>
-
                         @foreach($slide as $sl)
-
                             <!-- THE FIRST SLIDE -->
-
                                 <li data-transition="boxfade" data-slotamount="20" class="active-revslide"
                                     style="width: 100%; height: 100%; overflow: hidden; z-index: 18; visibility: hidden; opacity: 0;">
                                     <div class="slotholder" style="width:100%;height:100%;" data-duration="undefined"
@@ -40,7 +40,6 @@
                         </ul>
                     </div>
                 </div>
-
                 <div class="tp-bannertimer"></div>
             </div>
         </div>

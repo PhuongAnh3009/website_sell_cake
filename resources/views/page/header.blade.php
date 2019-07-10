@@ -6,6 +6,7 @@
                     <li><a href=""><i class="fa fa-home"></i> Address: Intracom Building, 82 Dich Vong Hau str., Cau
                             Giay dis., Ha Noi </a></li>
                     <li><a href=""><i class="fa fa-phone"></i> Hotline: 0988 888 888 </a></li>
+                    <li><a href="{{route('admin')}}"> Quan li </a></li>
                 </ul>
             </div>
             <div class="pull-right auto-width-right">
@@ -31,8 +32,8 @@
             <div class="pull-right beta-components space-left ov">
                 <div class="space10">&nbsp;</div>
                 <div class="beta-comp">
-                    <form role="search" method="get" id="searchform" action="/">
-                        <input type="text" value="" name="s" id="s" placeholder="Insert word..."/>
+                    <form role="search" method="get" id="searchform" action="{{route('search')}}">
+                        <input type="text" value="" name="key" id="s" placeholder="Insert word..."/>
                         <button class="fa fa-search" type="submit" id="searchsubmit"></button>
                     </form>
                 </div>

@@ -30,6 +30,7 @@ class SignupRequest extends FormRequest
             're_password' => 'required|same:password'
         ];
     }
+
     public function messages()
     {
         return [

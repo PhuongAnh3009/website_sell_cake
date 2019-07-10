@@ -99,7 +99,8 @@ class PageController extends Controller
         if (Auth::attempt($credentials)) {
             return redirect('index')->with(['flag' => 'success', 'message' => 'Login successful']);
         } else {
-            redirect()->back()->with(['flag' => 'danger', 'message' => 'Login is not successful']);
+//            redirect()->back()->with(['flag' => 'danger', 'message' => 'Login is not successful']);
+            return redirect('login') ->with(['flag'=>'danger','message'=>'Login fail']);
         }
     }
 
@@ -112,4 +113,9 @@ class PageController extends Controller
 //        Auth::add-product();
 //        return redirect()->back();
 //    }
+
+public function getSearch(Request $request) {
+        $product = Product::where('name','like','%'.$request->key.'%') -> orWhere('unit_price',$request->key) -> get();
+        return view('page.search',compact('product'));
+}
 }

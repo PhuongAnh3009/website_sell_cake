@@ -90,5 +90,42 @@ Route::get('sign-out', [
 //    'uses' => 'PageController@postAddproduct'
 //]);
 
+Route::get('search',[
+    'as' => "search",
+    'uses' => "PageController@getSearch"
+]);
+//Admin -------------------------------------------------------------------
+Route::group(['namespace'=>'admin', 'middleware'=>'adminLogin'], function (){
+    Route::get('admin',[
+        'as' => "admin",
+        'uses' => "AdminController@index"
+    ]);
+
+    Route::get('cate',[
+        'as' => "cate",
+        'uses' => "CateController@create"
+    ]);
+
+    Route::post('cate',[
+        'as' => "cate",
+        'uses' => "CateController@store"
+    ]);
+
+    Route::get('edit-cate/{id}',[
+        'as' => "edit",
+        'uses' => "CateController@edit"
+    ]);
+
+    Route::get('edit-cate/{id}',[
+        'as' => "edit",
+        'uses' => "CateController@update"
+    ]);
+
+    Route::get('del-cate/{id}',[
+        'as' => "delete",
+        'uses' => "CateController@destroy"
+    ]);
+});
+
 
 
